@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    <!-- De esta menera estamos activando el soporte de Spring para la inyección de dependencias de tal forma que 
+    	JSF sabrá que si no encuentra un bean bajo su contexto debe ir a buscarlo al contexto de Spring. el-resolver -->
+   	<application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+</faces-config>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:j="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<p:growl id="message" life="3000"/>
+				<h:panelGrid columns="4">
+					<h:outputLabel value="Titulo: "/>
+					<p:inputText id="titulo" value="#{libroBean.libroDTO.titulo}" required="true"/>
+					
+					<h:outputLabel value="Autor: " />
+					<p:inputText id="autor" value="#{libroBean.libroDTO.autor}" required="true"/>
+					
+					<h:outputLabel value="Editorial: " />
+					<p:inputText id="editorial" value="#{libroBean.libroDTO.editorial}" required="true"/>
+					
+					<h:outputLabel value="Edición: " />
+					<p:inputText id="edicion" value="#{libroBean.libroDTO.edicion}" required="true"/>
+					
+					<h:outputLabel value="No. Páginas: " />
+					<p:inputText id="paginas" value="#{libroBean.libroDTO.noPaginas}"/>
+					
+					<h:outputLabel value="Año Publicación: " />
+					<p:inputText id="anio" value="#{libroBean.libroDTO.anioPublicacion}" required="true"/>
+					
+					<h:outputLabel value="Género: " />
+					<p:inputText id="genero" value="#{libroBean.libroDTO.genero}" required="true"/>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:commandButton value="Registrar" 
+									 action="#{libroBean.registrarLibro}" 
+									 ajax="true" 
+									 update="@form :tablaRegistros"/>
+				</h:panelGrid>
+			</h:form>
+			<br/>
+			
+			<p:dataTable id="tablaRegistros" var="libro" value="#{libroBean.listaLibros}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorPosition="bottom">
+				<p:column headerText="Titulo"> 
+					<h:outputLabel value="#{libro.titulo}"/>
+				</p:column>
+				
+				<p:column headerText="Autor"> 
+					<h:outputLabel value="#{libro.autor}"/>
+				</p:column>
+				
+				<p:column headerText="Editorial"> 
+					<h:outputLabel value="#{libro.editorial}"/>
+				</p:column>
+				
+				<p:column headerText="Anio"> 
+					<h:outputLabel value="#{libro.anioPublicacion}"/>
+				</p:column>
+			</p:dataTable>			
+		</ui:define>
+	</ui:composition>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</h:body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>JSF</display-name>
+
+	<!-- Ambiente de desarrollo, produccion -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<!-- Pagina de Inicio -->
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
+	<!-- 
+		JSF Mapping
+		- Examina las peticiones recibidas.
+		- Actualiza la representacion de la interfaz del cliente y los datos de los ManagedBeans. 
+		- Invoca los manejadores de eventos y las acciones sobre a traves de los metodos de los ManagedBeans
+	 -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- Mapping para los tipos de paginas que se podran utilizar -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+	
+	<!-- Para que las clases sean serializables -->
+	<context-param>
+		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+	
+	<!-- Para mensajes en .prperties -->
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>resources.application</param-value>
+	</context-param>
+	
+	<!-- Mojarra - Implementacion de JSF -->
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+	
+	<!-- Spring  -->
+	<!-- archivos de configuracion y carga de bean para Spring  -->	
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>/WEB-INF/spring-config/applicationContext.xml</param-value>
+	</context-param>
+  	
+  	<!-- ContextLoaderListener:
+  		- Lee el(los) archivo(s) de configuración (con el valor dado en el contaxt-param de contextConfigLocation)  
+  		- Carga una instancia singleton o prototype de los beans definidos en el archivo de configuración. 
+  		- Al inicializar la aplicación con ContextLoaderListener podemos leer/analizar/validar el archivo de configuración -->
+	<listener>
+    	<listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+	</listener>
+  
+  	<!-- 
+  		- Para realizar las peticiones de spring MVC
+  		- Para deficion de scopes de los beans-->
+  	<listener>
+    	<listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+  	</listener>
+</web-app>
